@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Weather App</string>
+    <string name="temperature">Temperature</string>
+    <string name="Kemerovo">Kemerovo</string>
+    <string name="Country">Russian Federation</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="cloudiness">Cloudiness</string>
+    <string name="celsius_fahrenheit">Celsius / Fahrenheit</string>
+    <string name="air_pressure">Air pressure</string>
+    <string name="pressure_value" translatable="false">766.56\nмм рт.ст.</string>
+    <string name="air_humidity" translatable="false">Air_humidity</string>
+    <string name="humidity_value" translatable="false">78 %</string>
+    <string name="wind" translatable="false">Wind</string>
+    <string name="wind_value" translatable="false">4 mps</string>
+    <string name="temperature_value" translatable="false">29</string>
+
 </resources>

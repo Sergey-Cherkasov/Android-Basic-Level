@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_cloudiness"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/cloudiness"
+        android:src="@drawable/ic_day_sunny_overcast" />
+
+    <TextView
+        android:id="@+id/tv_temperature_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/iv_cloudiness"
+        android:text="@string/temperature_value"
+        android:textAlignment="center"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="100sp" />
+
+    <ImageView
+        android:id="@+id/iv_celsius_fahrenheit"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/tv_temperature_value"
+        android:contentDescription="@string/celsius_fahrenheit"
+        android:src="@drawable/ic_celsius" />
+
+</RelativeLayout>

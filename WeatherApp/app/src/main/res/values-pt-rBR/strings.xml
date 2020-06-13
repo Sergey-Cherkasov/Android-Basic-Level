@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">O tempo de aplicação</string>
+    <string name="temperature">Febre</string>
+    <string name="Kemerovo">Kemerovo</string>
+    <string name="Country">Russia</string>
+    <string name="cloudiness">nebulosidade</string>
+    <string name="celsius_fahrenheit">Celsius / Fahrenheit</string>
+    <string name="air_pressure">Pressao</string>
+</resources>

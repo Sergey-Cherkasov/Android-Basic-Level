@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Погода</string>
+    <string name="temperature">Температура</string>
+    <string name="Kemerovo">Кемерово</string>
+    <string name="Country">Российская Федерация</string>
+    <string name="cloudiness">Облачность</string>
+    <string name="celsius_fahrenheit">Градус Цельсия / Фаренгейт</string>
+    <string name="air_pressure">Давление воздуха</string>
+</resources>

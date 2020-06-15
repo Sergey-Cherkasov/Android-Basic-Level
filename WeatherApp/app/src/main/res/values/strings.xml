@@ -13,5 +13,6 @@
     <string name="wind" translatable="false">Wind</string>
     <string name="wind_value" translatable="false">4 mps</string>
     <string name="temperature_value" translatable="false">29</string>
+    <string name="night_mode" translatable="false">Night mode</string>
 
 </resources>

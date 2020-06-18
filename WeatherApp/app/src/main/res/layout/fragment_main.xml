@@ -60,7 +60,9 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/cl_current_location_temperature">
 
-        <include layout="@layout/component_atmospheric_indicators" />
+        <include
+            android:id="@+id/atmospheric_indicators"
+            layout="@layout/component_atmospheric_indicators" />
 
     </LinearLayout>
 

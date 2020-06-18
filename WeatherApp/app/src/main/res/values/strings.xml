@@ -3,7 +3,6 @@
     <string name="temperature">Temperature</string>
     <string name="Kemerovo">Kemerovo</string>
     <string name="Country">Russian Federation</string>
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="cloudiness">Cloudiness</string>
     <string name="celsius_fahrenheit">Celsius / Fahrenheit</string>
     <string name="air_pressure">Air pressure</string>
@@ -13,5 +12,17 @@
     <string name="wind" translatable="false">Wind</string>
     <string name="wind_value" translatable="false">4 mps</string>
     <string name="temperature_value" translatable="false">29</string>
+    <string name="night_mode">Night mode</string>
+    <string name="location">Location</string>
+    <string name="temperature_units">Temperature units</string>
+    <string name="c" translatable="false">C</string>
+    <string name="f" translatable="false">F</string>
+    <string name="wind_speed_units">Wind speed units</string>
+    <string name="m_s">m/s</string>
+    <string name="mph">mph</string>
+    <string name="cancel" translatable="false">@android:string/cancel</string>
+    <string name="apply" translatable="false">APPLY</string>
+    <string name="type_location">Type location</string>
+    <string name="settings">Settings</string>
 
 </resources>

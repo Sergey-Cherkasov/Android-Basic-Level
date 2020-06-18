@@ -7,4 +7,12 @@
     <string name="cloudiness">nebulosidade</string>
     <string name="celsius_fahrenheit">Celsius / Fahrenheit</string>
     <string name="air_pressure">Pressao</string>
+    <string name="location">Localizacao</string>
+    <string name="temperature_units">Unidades de temperatura</string>
+    <string name="wind_speed_units">Unidades de Velocidade do vento</string>
+    <string name="m_s">m/s</string>
+    <string name="mph">mph</string>
+    <string name="type_location">Localização do tipo</string>
+    <string name="night_mode">Modo nocturno</string>
+    <string name="settings">Definicao</string>
 </resources>

@@ -7,4 +7,12 @@
     <string name="cloudiness">Облачность</string>
     <string name="celsius_fahrenheit">Градус Цельсия / Фаренгейт</string>
     <string name="air_pressure">Давление воздуха</string>
+    <string name="location">Местоположение</string>
+    <string name="temperature_units">Ед. изм. температуры</string>
+    <string name="wind_speed_units">Скорость ветра</string>
+    <string name="m_s">м/с</string>
+    <string name="mph">миль/ч</string>
+    <string name="type_location">Введите местоположение</string>
+    <string name="night_mode">Темный режим</string>
+    <string name="settings">Настройки</string>
 </resources>

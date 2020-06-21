@@ -13,8 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp">
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
 
         <TextView
             android:id="@+id/tv_location"
@@ -138,12 +138,14 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
+                android:id="@+id/tv_Cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cancel"
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/tv_Apply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"

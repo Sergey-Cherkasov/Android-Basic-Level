@@ -15,4 +15,5 @@
     <string name="type_location">Введите местоположение</string>
     <string name="night_mode">Темный режим</string>
     <string name="settings">Настройки</string>
+    <string name="url_wiki_search_city">https://ru.wikipedia.org/wiki/</string>
 </resources>

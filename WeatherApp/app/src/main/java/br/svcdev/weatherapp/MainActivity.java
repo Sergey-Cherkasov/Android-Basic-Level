@@ -20,32 +20,42 @@
 
 package br.svcdev.weatherapp;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import java.util.Map;
 
 import br.svcdev.weatherapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding mBinding;
-    Toolbar mToolbar;
-    ActionBar mActionBar;
+    private static final String NAME_ACTIVITY = "MainActivity";
+    private static final int PERMISSION_FINE_LOCATION_OK = PackageManager.PERMISSION_GRANTED;
+    private static final int PERMISSION_COARSE_LOCATION_OK = PackageManager.PERMISSION_GRANTED;
+    private static final int REQUEST_CODE_PERMISSION_LOCATION = 10;
 
-    static final String NAME_ACTIVITY = "MainActivity";
+    private ActivityMainBinding mBinding;
+    private Toolbar mToolbar;
+    private ActionBar mActionBar;
+
+    private Intent intentService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,94 +64,129 @@ public class MainActivity extends AppCompatActivity {
         setContentView(mBinding.getRoot());
 
         initApp();
+        initToolbar();
+        initMainFragment();
 
-        Toast.makeText(this, "onCreate()", Toast.LENGTH_SHORT).show();
-        Log.d(ExternalMethods.TAG_APP, NAME_ACTIVITY + ".onCreate()");
+    }
 
+    private void initToolbar() {
         mToolbar = mBinding.toolbar.appToolbar;
         setSupportActionBar(mToolbar);
         mActionBar = getSupportActionBar();
         if (mActionBar != null) {
             mActionBar.setDisplayHomeAsUpEnabled(false);
         }
+    }
 
+    /**
+     * Метод инициализации приложения. Проверяет на наличие разрешений к геолокации,
+     * запрашивает соответствующие разрешения и запускает сервис геолокации
+     */
+    private void initApp() {
+        Log.d(Constants.TAG_APP, "MainActivity.initApp: Start init application");
+        int permissionStatusAccessFineLocation = ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        int permissionStatusAccessCoarseLocation = ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+        if (permissionStatusAccessFineLocation != PERMISSION_FINE_LOCATION_OK
+                && permissionStatusAccessCoarseLocation != PERMISSION_COARSE_LOCATION_OK) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    REQUEST_CODE_PERMISSION_LOCATION);
+        } else {
+        }
+        Log.d(Constants.TAG_APP, "MainActivity.initApp(): End init application.");
+    }
+
+    /**
+     * Метод обратного вызова (коллбек) после запроса установления разрешений к геолокации,
+     * запускает сервис геолокации
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_PERMISSION_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PERMISSION_FINE_LOCATION_OK
+                    && grantResults[1] == PERMISSION_COARSE_LOCATION_OK) {
+            } else {
+                finish();
+            }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        onLoadSettings();
+    }
+
+    /**
+     * Метод загружает данные из файла настроект
+     */
+    private void onLoadSettings() {
+        Log.d(Constants.TAG_APP, "MainActivity.onLoadSettings(): Started to load settings.");
+        Map<String, ?> mapSettings = getSharedPreferences(Constants.APP_PREFERENCES_FILE,
+                Context.MODE_PRIVATE).getAll();
+
+        for (Map.Entry<String, ?> mapSetting : mapSettings.entrySet()) {
+            switch (mapSetting.getKey()) {
+                case Constants.APP_PREFERENCES_LOCATION: {
+                    SettingsApp.getSettings().setLocation((String) mapSetting.getValue());
+                    break;
+                }
+                case Constants.APP_PREFERENCES_LOCATION_ID: {
+                    SettingsApp.getSettings().setLocationIds((Integer) mapSetting.getValue());
+                    break;
+                }
+                case Constants.APP_PREFERENCES_NIGHT_MODE: {
+                    SettingsApp.getSettings().setNightMode((Boolean) mapSetting.getValue());
+                    break;
+                }
+                case Constants.APP_PREFERENCES_TEMPERATURE_UNITS: {
+                    SettingsApp.getSettings().setTemperatureUnits((Boolean) mapSetting.getValue());
+                    break;
+                }
+                case Constants.APP_PREFERENCES_WIND_SPEED_UNITS: {
+                    SettingsApp.getSettings().setWindSpeedUnits((Boolean) mapSetting.getValue());
+                }
+            }
+        }
+        Log.d(Constants.TAG_APP, "MainActivity.onLoadSettings(): Ended to load settings.");
+    }
+
+    /**
+     * Метод загружает главный фрагмент
+     */
+    private void initMainFragment() {
         Fragment mFragment = new MainFragment();
         FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.replace(R.id.fl_content_frame, mFragment);
         mFragmentTransaction.commit();
     }
 
-    private void initApp() {
-        Log.d(ExternalMethods.TAG_APP, "MainActivity.initApp(): Method started.");
-        SharedPreferences mPreferences = getSharedPreferences(ExternalMethods.APP_PREFERENCES_FILE,
-                Context.MODE_PRIVATE);
-        if (mPreferences.contains(ExternalMethods.APP_PREFERENCES_LOCATION)) {
-            SettingsApp.getmSettings().setmLocation(mPreferences
-                    .getString(ExternalMethods.APP_PREFERENCES_LOCATION, ""));
-        }
-        if (mPreferences.contains(ExternalMethods.APP_PREFERENCES_NIGHT_MODE)) {
-            SettingsApp.getmSettings().setmNightMode(mPreferences
-                    .getBoolean(ExternalMethods.APP_PREFERENCES_NIGHT_MODE, false));
-        }
-        if (mPreferences.contains(ExternalMethods.APP_PREFERENCES_TEMPERATURE_UNITS)) {
-            SettingsApp.getmSettings().setmTemperatureUnits(mPreferences
-                    .getBoolean(ExternalMethods.APP_PREFERENCES_TEMPERATURE_UNITS, false));
-        }
-        if (mPreferences.contains(ExternalMethods.APP_PREFERENCES_WIND_SPEED_UNITS)) {
-            SettingsApp.getmSettings().setmWindSpeedUnits(mPreferences
-                    .getBoolean(ExternalMethods.APP_PREFERENCES_WIND_SPEED_UNITS, false));
-        }
-        Log.d(ExternalMethods.TAG_APP, "MainActivity.initApp(): Method ended.");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        Toast.makeText(this, "onStart()", Toast.LENGTH_SHORT).show();
-        Log.d(ExternalMethods.TAG_APP, NAME_ACTIVITY + ".onStart()");
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this, "onResume()", Toast.LENGTH_SHORT).show();
-        Log.d(ExternalMethods.TAG_APP, NAME_ACTIVITY + ".onResume()");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Toast.makeText(this, "onPause()", Toast.LENGTH_SHORT).show();
-        Log.d(ExternalMethods.TAG_APP, NAME_ACTIVITY + ".onPause()");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Toast.makeText(this, "onStop()", Toast.LENGTH_SHORT).show();
-        Log.d(ExternalMethods.TAG_APP, NAME_ACTIVITY + ".onStop()");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        SharedPreferences mPreferences = getSharedPreferences(ExternalMethods.APP_PREFERENCES_FILE,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor mEditor = mPreferences.edit();
-        mEditor.putString(ExternalMethods.APP_PREFERENCES_LOCATION,
-                String.valueOf(SettingsApp.getmSettings().getmLocation()));
-        mEditor.putBoolean(ExternalMethods.APP_PREFERENCES_NIGHT_MODE,
-                SettingsApp.getmSettings().ismNightMode());
-        mEditor.putBoolean(ExternalMethods.APP_PREFERENCES_TEMPERATURE_UNITS,
-                SettingsApp.getmSettings().ismTemperatureUnits());
-        mEditor.putBoolean(ExternalMethods.APP_PREFERENCES_WIND_SPEED_UNITS,
-                SettingsApp.getmSettings().ismWindSpeedUnits());
-        mEditor.apply();
-
-        Toast.makeText(this, "onDestroy()", Toast.LENGTH_SHORT).show();
-        Log.d(ExternalMethods.TAG_APP, NAME_ACTIVITY + ".onDestroy()");
     }
 
     @Override

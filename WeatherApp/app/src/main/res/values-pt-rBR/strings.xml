@@ -15,4 +15,5 @@
     <string name="type_location">Localização do tipo</string>
     <string name="night_mode">Modo nocturno</string>
     <string name="settings">Definicao</string>
+    <string name="url_wiki_search_city">https://pt.wikipedia.org/wiki/</string>
 </resources>

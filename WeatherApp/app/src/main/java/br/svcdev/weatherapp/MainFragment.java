@@ -34,6 +34,17 @@ public class MainFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mBinding = FragmentMainBinding.inflate(inflater, container, false);
         mBinding.tvLocationCity.setText(R.string.Kemerovo);
+        mBinding.tvLocationCity.setOnClickListener((View view) -> {
+            String url = getResources().getString(R.string.url_wiki_search_city);
+            Uri uri = Uri.parse(url + mBinding.tvLocationCity.getText());
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            Intent chooser = Intent.createChooser(intent, "Choose browser:");
+            ComponentName componentName = intent.resolveActivity(Objects
+                    .requireNonNull(getActivity()).getPackageManager());
+            if (componentName != null) {
+                startActivity(chooser);
+            }
+        });
 
         return mBinding.getRoot();
     }

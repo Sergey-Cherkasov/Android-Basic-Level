@@ -16,4 +16,5 @@
     <string name="night_mode">Modo nocturno</string>
     <string name="settings">Definicao</string>
     <string name="url_wiki_search_city">https://pt.wikipedia.org/wiki/</string>
+    <string name="data_request_language">pt-pt</string>
 </resources>

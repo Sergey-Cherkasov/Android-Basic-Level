@@ -16,6 +16,7 @@
  * private int mPrivateIntValue = 42;
  * protected int mIntValue = mProtectedIntValue = 42;
  *
+ * API open weather:
  */
 
 package br.svcdev.weatherapp;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String NAME_ACTIVITY = "MainActivity";
     private static final int PERMISSION_FINE_LOCATION_OK = PackageManager.PERMISSION_GRANTED;
     private static final int PERMISSION_COARSE_LOCATION_OK = PackageManager.PERMISSION_GRANTED;
-    private static final int REQUEST_CODE_PERMISSION_LOCATION = 10;
+    private static final int REQUEST_CODE_PERMISSIONS = 100;
 
     private ActivityMainBinding mBinding;
     private Toolbar mToolbar;
@@ -92,11 +93,16 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_COARSE_LOCATION);
         if (permissionStatusAccessFineLocation != PERMISSION_FINE_LOCATION_OK
                 && permissionStatusAccessCoarseLocation != PERMISSION_COARSE_LOCATION_OK) {
+            Log.d(Constants.TAG_APP, "Permissions are missing");
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION},
-                    REQUEST_CODE_PERMISSION_LOCATION);
+                    REQUEST_CODE_PERMISSIONS);
         } else {
+            Log.d(Constants.TAG_APP,"Permissions are available");
+            Log.d(Constants.TAG_APP, "MainActivity.initApp(): Start service");
+            intentService = new Intent(this, WeatherLocationService.class);
+            startService(intentService);
         }
         Log.d(Constants.TAG_APP, "MainActivity.initApp(): End init application.");
     }
@@ -110,9 +116,12 @@ public class MainActivity extends AppCompatActivity {
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_PERMISSION_LOCATION) {
-            if (grantResults.length > 0 && grantResults[0] == PERMISSION_FINE_LOCATION_OK
-                    && grantResults[1] == PERMISSION_COARSE_LOCATION_OK) {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (grantResults.length > 0 &&
+                    grantResults[0] == PERMISSION_FINE_LOCATION_OK &&
+                    grantResults[1] == PERMISSION_COARSE_LOCATION_OK) {
+                intentService = new Intent(this, WeatherLocationService.class);
+                startService(intentService);
             } else {
                 finish();
             }
@@ -187,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        stopService(intentService);
     }
 
     @Override

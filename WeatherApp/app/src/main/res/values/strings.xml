@@ -26,5 +26,6 @@
     <string name="settings">Settings</string>
     <string name="url_wiki_search_city">https://en.wikipedia.org/wiki/</string>
     <string name="data_request_language">en-en</string>
+    <string name="apikey" translatable="false">AIzaSyAYcPoJaNwAPjfwQ0UFNJT6CrrC3ztbCmU</string>
 
 </resources>

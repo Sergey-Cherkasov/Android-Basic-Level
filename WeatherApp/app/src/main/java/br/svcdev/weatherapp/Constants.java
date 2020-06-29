@@ -16,7 +16,7 @@ public final class Constants {
 
 
     /* API KEYs for weather sites */
-    protected static final String ACCUWEATHER_API_KEY = "U9NAEdJP9XaeAeu9JXweo7vGTGRJfiQq";
+    public static final String ACCUWEATHER_API_KEY = "U9NAEdJP9XaeAeu9JXweo7vGTGRJfiQq";
     protected static final String OPEN_WEATHER_API_KEY = "2774380a7fbc3859b8bbe154984844b5";
 
 //    protected static final String URL_CURRENT_CONDITIONS =

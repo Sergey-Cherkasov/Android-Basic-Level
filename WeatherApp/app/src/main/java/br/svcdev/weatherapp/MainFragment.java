@@ -45,7 +45,6 @@ public class MainFragment extends Fragment {
                 startActivity(chooser);
             }
         });
-
         return mBinding.getRoot();
     }
 

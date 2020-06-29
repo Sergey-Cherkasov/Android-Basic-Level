@@ -16,4 +16,5 @@
     <string name="night_mode">Темный режим</string>
     <string name="settings">Настройки</string>
     <string name="url_wiki_search_city">https://ru.wikipedia.org/wiki/</string>
+    <string name="data_request_language">ru-ru</string>
 </resources>

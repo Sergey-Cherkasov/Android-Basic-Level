@@ -66,10 +66,4 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_atmospheric_indicators" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

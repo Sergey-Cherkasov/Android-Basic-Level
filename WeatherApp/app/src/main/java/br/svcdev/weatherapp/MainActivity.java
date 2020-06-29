@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         initApp();
         initToolbar();
         initMainFragment();
+        initForecastFragment();
 
     }
 
@@ -169,12 +170,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Метод загружает главный фрагмент
+     * Метод загружает фрагмент с текущей погодой
      */
     private void initMainFragment() {
         Fragment mFragment = new MainFragment();
         FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        mFragmentTransaction.replace(R.id.fl_content_frame, mFragment);
+        mFragmentTransaction.replace(R.id.fl_current_frame, mFragment);
+        mFragmentTransaction.commit();
+    }
+
+    /**
+     * Метод загружает фрагмент с прогнозом погоды на несколько дней
+     */
+    private void initForecastFragment() {
+        Fragment mFragment = new ForecastFragment();
+        FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        mFragmentTransaction.replace(R.id.fl_forecast_frame, mFragment);
         mFragmentTransaction.commit();
     }
 

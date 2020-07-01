@@ -5,11 +5,11 @@
 
     <ImageView
         android:id="@+id/iv_cloudiness"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerVertical="true"
         android:contentDescription="@string/cloudiness"
-        android:src="@drawable/ic_day_sunny_overcast" />
+        android:src="@drawable/ic_cloudy_to_sunny" />
 
     <TextView
         android:id="@+id/tv_temperature_value"
@@ -19,7 +19,7 @@
         android:layout_toEndOf="@id/iv_cloudiness"
         android:text="@string/temperature_value"
         android:textAlignment="center"
-        android:textColor="@color/colorSecondaryText"
+        android:textColor="@color/colorPrimaryText"
         android:textSize="100sp" />
 
     <ImageView

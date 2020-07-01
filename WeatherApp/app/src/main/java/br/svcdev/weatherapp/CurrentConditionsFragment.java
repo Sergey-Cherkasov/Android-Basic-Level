@@ -18,21 +18,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import br.svcdev.weatherapp.databinding.FragmentMainBinding;
+import br.svcdev.weatherapp.databinding.FragmentCurrentConditionsBinding;
 
-public class MainFragment extends Fragment {
+public class CurrentConditionsFragment extends Fragment {
 
     private static final String NAME_FRAGMENT = "MainFragment";
     private Context mContext;
     private SharedPreferences mPreferences;
-    private FragmentMainBinding mBinding;
+    private FragmentCurrentConditionsBinding mBinding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding = FragmentMainBinding.inflate(inflater, container, false);
+        mBinding = FragmentCurrentConditionsBinding.inflate(inflater, container, false);
         mBinding.tvLocationCity.setText(R.string.Kemerovo);
         mBinding.tvLocationCity.setOnClickListener((View view) -> {
             String url = getResources().getString(R.string.url_wiki_search_city);

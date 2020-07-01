@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".MainFragment">
+    tools:context=".CurrentConditionsFragment">
 
     <LinearLayout
         android:id="@+id/ll_current_location"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="@string/Kemerovo"
             android:textAlignment="center"
-            android:textColor="@color/colorSecondaryText"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:text="@string/Country"
             android:textAlignment="center"
-            android:textColor="@color/colorSecondaryText"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,11 +65,5 @@
             layout="@layout/component_atmospheric_indicators" />
 
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_atmospheric_indicators" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

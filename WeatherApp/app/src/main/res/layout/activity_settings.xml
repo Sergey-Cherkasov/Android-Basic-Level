@@ -35,7 +35,7 @@
             app:layout_constraintStart_toEndOf="@id/tv_location"
             app:layout_constraintTop_toTopOf="@id/guideline1">
 
-            <br.svcdev.weatherapp.view.AutocompleteSearchTextView
+            <br.svcdev.weatherapp.view.CityAutocompleteTextView
                 android:hint="@string/input_location"
                 android:id="@+id/city_name"
                 android:imeOptions="flagNoExtractUi|actionSearch"

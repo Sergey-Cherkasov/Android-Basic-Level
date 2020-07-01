@@ -9,16 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import br.svcdev.weatherapp.databinding.FragmentForecastBinding;
+import br.svcdev.weatherapp.databinding.FragmentDailyForecastsBinding;
 
-public class ForecastFragment extends Fragment {
+public class DailyForecastsFragment extends Fragment {
 
-    private FragmentForecastBinding mBinding;
+    private FragmentDailyForecastsBinding mBinding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = FragmentForecastBinding.inflate(inflater, container, false);
+        mBinding = FragmentDailyForecastsBinding.inflate(inflater, container, false);
 
         return mBinding.getRoot();
     }

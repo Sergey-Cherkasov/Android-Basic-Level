@@ -1,17 +1,15 @@
 package br.svcdev.weatherapp.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
-public class AutocompleteSearchTextView extends androidx.appcompat.widget.AppCompatAutoCompleteTextView {
+public class CityAutocompleteTextView extends androidx.appcompat.widget.AppCompatAutoCompleteTextView {
 
     private static final int MESSAGE_TEXT_CHANGED = 100;
     private static final int DEFAULT_AUTOCOMPLETE_DELAY = 750;
@@ -22,11 +20,11 @@ public class AutocompleteSearchTextView extends androidx.appcompat.widget.AppCom
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
-            AutocompleteSearchTextView.super.performFiltering((CharSequence) msg.obj, msg.arg1);
+            CityAutocompleteTextView.super.performFiltering((CharSequence) msg.obj, msg.arg1);
         }
     };
 
-    public AutocompleteSearchTextView(Context context, AttributeSet attrs) {
+    public CityAutocompleteTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

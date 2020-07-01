@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
      * Метод загружает фрагмент с текущей погодой
      */
     private void initMainFragment() {
-        Fragment mFragment = new MainFragment();
+        Fragment mFragment = new CurrentConditionsFragment();
         FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.replace(R.id.fl_current_frame, mFragment);
         mFragmentTransaction.commit();
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
      * Метод загружает фрагмент с прогнозом погоды на несколько дней
      */
     private void initForecastFragment() {
-        Fragment mFragment = new ForecastFragment();
+        Fragment mFragment = new DailyForecastsFragment();
         FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.replace(R.id.fl_forecast_frame, mFragment);
         mFragmentTransaction.commit();

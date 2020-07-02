@@ -8,48 +8,14 @@
     tools:context=".CurrentConditionsFragment">
 
     <LinearLayout
-        android:id="@+id/ll_current_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tv_location_city"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Kemerovo"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ll_current_location" />
-
-        <TextView
-            android:id="@+id/tv_location_country"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Country"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_location_city" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/cl_current_location_temperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/ll_current_location">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <include layout="@layout/component_temperature" />
+        <include layout="@layout/component_temperature"
+            android:id="@+id/component_temperature"/>
 
     </LinearLayout>
 

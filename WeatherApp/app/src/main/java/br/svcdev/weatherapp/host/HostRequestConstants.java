@@ -7,9 +7,9 @@ public abstract class HostRequestConstants {
 
     /**
      * Идентификатор url получения текущего прогноза погоды
-     * @example http://127.0.0.1/currentconditions/v1/{cityId}?apikey=&language=
+     * @example http://127.0.0.1/currentconditions/v1/{locationId}?apikey=&language=
      */
-    public static final String URL_GET_CURRENT_CONDITIONS = "/currentconditions/v1";
+    public static final String URL_GET_CURRENT_CONDITIONS = "/currentconditions/v1/";
 
     /**
      * Идентификатор url получения информации о местоположении города

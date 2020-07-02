@@ -5,7 +5,7 @@ public final class SettingsApp {
     private static SettingsApp sSettings;
 
     private String mLocation;
-    private int mLocationIds;
+    private int mLocationId;
     private boolean mNightMode;
     private boolean mTemperatureUnits;
     private boolean mWindSpeedUnits;
@@ -47,11 +47,11 @@ public final class SettingsApp {
         this.mNightMode = mNightMode;
     }
 
-    public int getLocationIds() {
-        return mLocationIds;
+    public int getLocationId() {
+        return mLocationId;
     }
 
-    public void setLocationIds(int mLocationIds) {
-        this.mLocationIds = mLocationIds;
+    public void setLocationId(int mLocationIds) {
+        this.mLocationId = mLocationIds;
     }
 }

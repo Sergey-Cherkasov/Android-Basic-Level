@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/iv_air_pressure"
         android:contentDescription="@string/air_pressure"
-        android:src="@drawable/ic_cloud_up"
+        android:src="@drawable/ic_pressure"
         style="@style/Atmospheric_indicators_images"
         app:layout_constraintEnd_toEndOf="@id/tv_air_pressure_value"
         app:layout_constraintStart_toStartOf="@id/tv_air_pressure_value"
@@ -24,7 +24,7 @@
     <ImageView
         android:id="@+id/iv_air_humidity"
         android:contentDescription="@string/air_humidity"
-        android:src="@drawable/ic_air_humidity"
+        android:src="@drawable/ic_humidity"
         style="@style/Atmospheric_indicators_images"
         app:layout_constraintEnd_toEndOf="@id/tv_air_humidity_value"
         app:layout_constraintStart_toStartOf="@id/tv_air_humidity_value"

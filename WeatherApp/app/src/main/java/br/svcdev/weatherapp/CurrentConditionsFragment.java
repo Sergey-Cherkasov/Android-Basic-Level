@@ -14,10 +14,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.CharBuffer;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
+import br.svcdev.weatherapp.api.conditions.current.CurrentWeather;
 import br.svcdev.weatherapp.databinding.FragmentCurrentConditionsBinding;
 
 public class CurrentConditionsFragment extends Fragment {
@@ -33,18 +43,6 @@ public class CurrentConditionsFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mBinding = FragmentCurrentConditionsBinding.inflate(inflater, container, false);
-        mBinding.tvLocationCity.setText(R.string.Kemerovo);
-        mBinding.tvLocationCity.setOnClickListener((View view) -> {
-            String url = getResources().getString(R.string.url_wiki_search_city);
-            Uri uri = Uri.parse(url + mBinding.tvLocationCity.getText());
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            Intent chooser = Intent.createChooser(intent, "Choose browser:");
-            ComponentName componentName = intent.resolveActivity(Objects
-                    .requireNonNull(getActivity()).getPackageManager());
-            if (componentName != null) {
-                startActivity(chooser);
-            }
-        });
         return mBinding.getRoot();
     }
 
@@ -72,8 +70,6 @@ public class CurrentConditionsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        List<String> listCities = Arrays.asList(getResources().getStringArray(R.array.cities));
-        mBinding.tvLocationCity.setText(listCities.get(SettingsApp.getSettings().getLocationIds()));
     }
 
     @Override

@@ -13,8 +13,8 @@ public final class CurrentWeather {
     @SerializedName("RelativeHumidity")
     private int relativeHumidity;
 
-    @SerializedName("Wind.Speed")
-    private Speed windSpeed;
+    @SerializedName("Wind")
+    private Wind wind;
 
     @SerializedName("Pressure")
     private Pressure pressure;
@@ -43,12 +43,12 @@ public final class CurrentWeather {
         this.relativeHumidity = relativeHumidity;
     }
 
-    public Speed getWindSpeed() {
-        return windSpeed;
+    public Wind getWind() {
+        return wind;
     }
 
-    public void setWindSpeed(Speed windSpeed) {
-        this.windSpeed = windSpeed;
+    public void setWind(Wind wind) {
+        this.wind = wind;
     }
 
     public Pressure getPressure() {

@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName;
 public class Imperial {
 
     @SerializedName("Value")
-    private int value;
+    private double value;
 
     @SerializedName("Unit")
     private String unit;
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 

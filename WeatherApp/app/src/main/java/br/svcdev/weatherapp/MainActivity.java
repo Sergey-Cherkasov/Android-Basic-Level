@@ -33,6 +33,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -43,14 +44,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Map;
 
 import br.svcdev.weatherapp.databinding.ActivityMainBinding;
-import br.svcdev.weatherapp.host.HostRequestConstants;
+import br.svcdev.weatherapp.host.SendRequest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -107,25 +104,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.d(Constants.TAG_APP, "Permissions are available");
             Log.d(Constants.TAG_APP, "MainActivity.initApp(): Start service");
-
             initUI();
-
         }
         Log.d(Constants.TAG_APP, "MainActivity.initApp(): End init application.");
-    }
-
-    private void initUI() {
-        mBinding.tvLocationCity.setText("");
-        mBinding.tvLocationCity.setOnClickListener((View view) -> {
-            String url = getResources().getString(R.string.url_wiki_search_city);
-            Uri uri = Uri.parse(url + mBinding.tvLocationCity.getText());
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            Intent chooser = Intent.createChooser(intent, "Choose browser:");
-            ComponentName componentName = intent.resolveActivity(this.getPackageManager());
-            if (componentName != null) {
-                startActivity(chooser);
-            }
-        });
     }
 
     /**
@@ -141,10 +122,28 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults.length > 0 &&
                     grantResults[0] == PERMISSION_FINE_LOCATION_OK &&
                     grantResults[1] == PERMISSION_COARSE_LOCATION_OK) {
+                initUI();
             } else {
                 finish();
             }
         }
+    }
+
+    /**
+     * Метод инициализации графического интерфейса
+     */
+    private void initUI() {
+        mBinding.tvLocationCity.setText("");
+        mBinding.tvLocationCity.setOnClickListener((View view) -> {
+            String url = getResources().getString(R.string.url_wiki_search_city);
+            Uri uri = Uri.parse(url + mBinding.tvLocationCity.getText());
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            Intent chooser = Intent.createChooser(intent, "Choose browser:");
+            ComponentName componentName = intent.resolveActivity(this.getPackageManager());
+            if (componentName != null) {
+                startActivity(chooser);
+            }
+        });
     }
 
     @Override
@@ -188,42 +187,12 @@ public class MainActivity extends AppCompatActivity {
         if (mBinding.tvLocationCity.getText().toString().equals("") &&
                 !mBinding.tvLocationCity.getText().toString()
                         .equals(SettingsApp.getSettings().getLocation())) {
-            URL url = null;
-            try {
-                url = new URL(buildApiStringRequest(SettingsApp.getSettings().getLocationId(),
-                        true));
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            Log.d(Constants.TAG_APP, "MainActivity.onLoadSettings: url = " + url);
-        }
-    }
 
-    private String getStringResponse(BufferedReader in) {
-        String tmpString;
-        StringBuilder resultString = new StringBuilder();
-        try {
-            while ((tmpString = in.readLine()) != null) {
-                resultString.append(tmpString);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return resultString.toString();
-    }
+            SendRequest sr = new SendRequest(this, getSupportFragmentManager());
+            sr.execute();
 
-    /**
-     * 127.0.0.1/currentconditions/v1/293142?apikey=WEATHER_API_KEY&language=ru-ru
-     */
-    private String buildApiStringRequest(int locationId, boolean details) {
-        String url = "";
-        url = HostRequestConstants.ACCUWEATHER_HOST +
-                HostRequestConstants.URL_GET_CURRENT_CONDITIONS +
-                locationId + "?" +
-                "apikey=" + Constants.ACCUWEATHER_API_KEY + "&" +
-                "details=" + details + "&" +
-                "language=" + getResources().getString(R.string.data_request_language);
-        return url;
+
+        }
     }
 
     /**

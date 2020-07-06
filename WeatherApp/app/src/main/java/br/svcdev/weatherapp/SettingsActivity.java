@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
+import android.widget.RadioGroup;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import br.svcdev.weatherapp.adapters.CityAutocompleteAdapter;
 import br.svcdev.weatherapp.api.autocompletesearch.AutocompleteSearch;
 import br.svcdev.weatherapp.databinding.ActivitySettingsBinding;
+
+import static android.widget.CompoundButton.*;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -46,11 +50,22 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         mBinding.switchNightMode.setChecked(SettingsApp.getSettings().isNightMode());
+        mBinding.switchNightMode.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                setDarkTheme(isChecked);
+                recreate();
+            }
+        });
         mBinding.switchTemperatureUnits.setChecked(SettingsApp.getSettings().isTemperatureUnits());
         mBinding.switchWindSpeedUnits.setChecked(SettingsApp.getSettings().isWindSpeedUnits());
 
         mBinding.tvCancel.setOnClickListener(view -> SettingsActivity.this.finish());
         mBinding.tvApply.setOnClickListener(new ApplyClickListener());
+    }
+
+    private void setDarkTheme(boolean isDarkTheme){
+        SettingsApp.getSettings().setNightMode(isDarkTheme);
     }
 
     private void initToolbar() {

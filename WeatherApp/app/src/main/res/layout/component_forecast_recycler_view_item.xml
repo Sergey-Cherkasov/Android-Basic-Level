@@ -18,7 +18,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Saturday, 4 July"
-            android:textColor="@color/colorPrimaryText"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -27,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sunny"
-            android:textColor="@color/colorPrimaryText"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -49,7 +47,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="5%"
-            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             android:textStyle="bold"/>
 

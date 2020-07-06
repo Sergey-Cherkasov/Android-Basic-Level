@@ -1,19 +1,45 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/app_light_blue_500</item>
+        <item name="colorPrimaryVariant">@color/app_light_blue_700</item>
+        <item name="colorOnPrimary">@color/color_on_primary</item>
+        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorSecondaryVariant">@color/color_secondary_light</item>
+        <item name="colorOnSecondary">@color/color_on_secondary</item>
+
+
+
+<!--
+        <item name="colorError">@color/color_error</item>
+        <item name="android:colorBackground">@color/color_background</item>
+
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textColorSecondary">@color/textSecondary</item>
+
+
+        <item name="colorPrimaryVariant">@color/my_app_primary_variant_color</item>
+        <item name="colorSecondaryVariant">@color/my_app_secondary_variant_color</item>
+        <item name="colorSurface">@color/my_app_surface_color</item>
+        <item name="colorOnPrimary">@color/my_app_color_on_primary</item>
+        <item name="colorOnSecondary">@color/my_app_color_on_secondary</item>
+        <item name="colorOnBackground">@color/my_app_color_on_background</item>
+        <item name="colorOnError">@color/my_app_color_on_error</item>
+        <item name="colorOnSurface">@color/my_app_color_on_surface</item>
+-->
+    </style>
+
+    <style name="AppDarkTheme" parent="Theme.MaterialComponents.NoActionBar">
+<!--        <item name="colorPrimaryVariant">@color/app_light_blue_500_dark</item> -->
     </style>
 
     <!-- Toolbar theme -->
-    <style name="AppToolbar">
-        <item name="android:background">@color/colorPrimary</item>
+    <style name="AppToolbar" parent="Widget.MaterialComponents.ActionBar.Primary">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
-        <item name="titleTextColor">@color/colorSecondaryText</item>
-        <item name="colorControlNormal">@color/colorWhite</item>
     </style>
 
     <!-- Atmospheric indicators theme -->
@@ -21,9 +47,10 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/colorPrimaryText</item>
+<!--        <item name="android:textColor">@color/text_primary</item> -->
         <item name="android:textSize">18sp</item>
     </style>
+
     <style name="Atmospheric_indicators_images">
         <item name="android:layout_width">60dp</item>
         <item name="android:layout_height">60dp</item>

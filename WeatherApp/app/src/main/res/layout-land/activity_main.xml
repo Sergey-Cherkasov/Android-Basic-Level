@@ -16,22 +16,18 @@
 
         <TextView
             android:id="@+id/tv_location_city"
-            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Kemerovo"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryText"
             android:textSize="30sp" />
 
         <TextView
             android:id="@+id/tv_location_country"
-            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Country"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryText"
             android:textSize="15sp" />
 
         <LinearLayout

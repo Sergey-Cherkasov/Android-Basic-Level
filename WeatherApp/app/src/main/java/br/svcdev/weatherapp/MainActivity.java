@@ -188,8 +188,8 @@ public class MainActivity extends AppCompatActivity {
                 !mBinding.tvLocationCity.getText().toString()
                         .equals(SettingsApp.getSettings().getLocation())) {
 
-            SendRequest sr = new SendRequest(this, getSupportFragmentManager());
-            sr.execute();
+//            SendRequest sr = new SendRequest(this, getSupportFragmentManager());
+//            sr.execute();
 
 
         }

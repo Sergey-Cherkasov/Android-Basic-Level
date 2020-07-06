@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#82CAFA</color>
-    <color name="colorPrimaryDark">#003380</color>
-    <color name="colorAccent">#99CCFF</color>
-    <color name="colorWhite">#FFFFFF</color>
-    <color name="colorPrimaryText">#000000</color>
-    <color name="colorSecondaryText">#FFFFFF</color>
-    <color name="colorActionText">#99CCFF</color>
+    <color name="app_light_blue_500">#03A9F4</color> <!-- color_primary -->
+    <color name="app_light_blue_700">#0288D1</color> <!-- color_primary_light -->
+    <color name="app_light_blue_500_dark">#007AC1</color> <!-- color_primary_dark -->
+    <color name="color_on_primary">#FFFFFF</color>
+    <color name="color_secondary">#80DEEA</color>
+    <color name="color_secondary_light">#B4FFFF</color>
+    <color name="color_secondary_dark">#4BACB8</color>
+    <color name="color_on_secondary">#000000</color>
+
+
+
+
+<!--
+    <color name="color_text_on_primary">#000000</color>
+    <color name="color_text_on_secondary">#000000</color>
+
+    <color name="color_background">#F5F5F5</color>
+
+    <color name="color_text">#FFFFFF</color>
+    <color name="color_icon">#FFFFFF</color>
+    <color name="color_accent">#8BC34A</color>
+    <color name="color_text_primary">#212121</color>
+    <color name="color_text_secondary">#757575</color>
+    <color name="color_divider">#BDBDBD</color>
+-->
+
 </resources>

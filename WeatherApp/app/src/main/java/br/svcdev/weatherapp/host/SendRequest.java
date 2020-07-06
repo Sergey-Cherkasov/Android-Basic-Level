@@ -111,9 +111,8 @@ public class SendRequest extends AsyncTask<Void, Object[], Object[]> {
                     (int) currentWeather[0].getTemperature().getMetric().getValue()));
             ((TextView) mManager.findFragmentById(R.id.fl_current_frame).getView()
                     .findViewById(R.id.tv_temperature_value))
-                    .setText(String.format("%d %s", (int) currentWeather[0]
-                            .getTemperature().getMetric().getValue(),
-                            currentWeather[0].getTemperature().getMetric().getUnit()));
+                    .setText(String.format("%d", (int) currentWeather[0]
+                            .getTemperature().getMetric().getValue()));
             ((TextView) mManager.findFragmentById(R.id.fl_current_frame).getView()
                     .findViewById(R.id.tv_air_humidity_value))
                     .setText(String.format("%d %%", (int) currentWeather[0]

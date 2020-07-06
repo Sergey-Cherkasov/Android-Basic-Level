@@ -18,6 +18,10 @@ public final class Constants {
     /* API KEYs for weather sites */
     public static final String ACCUWEATHER_API_KEY = "U9NAEdJP9XaeAeu9JXweo7vGTGRJfiQq";
     protected static final String OPEN_WEATHER_API_KEY = "2774380a7fbc3859b8bbe154984844b5";
+//    public static final String YANDEX_WEATHER_API_KEY = "db04b1bb-4d7c-485f-8e02-9252032416d6";
+
+    /* Формат запроса к Yandex.Weather: GET https://api.weather.yandex.ru/v2/forecast?
+    * Header request: X-Yandex-API-Key: db04b1bb-4d7c-485f-8e02-9252032416d6*/
 
 //    protected static final String URL_CURRENT_CONDITIONS =
 //            ACCUWEATHER_HOST + URL_GET_CURRENT_CONDITIONS + "/293142?apikey=" + ACCUWEATHER_API_KEY

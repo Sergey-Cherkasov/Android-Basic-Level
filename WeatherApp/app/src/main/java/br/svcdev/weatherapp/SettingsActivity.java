@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import br.svcdev.weatherapp.databinding.ActivitySettingsBinding;
 public class SettingsActivity extends AppCompatActivity {
 
     private ActivitySettingsBinding mBinding;
+    private int key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +35,14 @@ public class SettingsActivity extends AppCompatActivity {
         mBinding.cityName.setAutocompleteDelay(800);
         mBinding.cityName.setAdapter(new CityAutocompleteAdapter(this));
         mBinding.cityName.setIndicatorLoading(mBinding.progressBarCircle);
-        mBinding.cityName.setOnItemClickListener((adapterView, view, position, id) -> {
-            AutocompleteSearch autocompleteSearch =
-                    (AutocompleteSearch) adapterView.getItemAtPosition(position);
-            mBinding.cityName.setText(autocompleteSearch.getLocalizedName());
+        mBinding.cityName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                AutocompleteSearch autocompleteSearch =
+                        (AutocompleteSearch) adapterView.getItemAtPosition(position);
+                mBinding.cityName.setText(autocompleteSearch.getLocalizedName());
+                key = autocompleteSearch.getKey();
+            }
         });
 
         mBinding.switchNightMode.setChecked(SettingsApp.getSettings().isNightMode());
@@ -62,6 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
                 SettingsApp.getSettings().setLocation(String.valueOf(mBinding.cityName
                         .getText()));
             }
+            SettingsApp.getSettings().setLocationId(key);
             SettingsApp.getSettings().setNightMode(mBinding.switchNightMode.isChecked());
             SettingsApp.getSettings().setTemperatureUnits(mBinding.switchTemperatureUnits
                     .isChecked());
@@ -78,7 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
         mEditor.putString(Constants.APP_PREFERENCES_LOCATION,
                 String.valueOf(SettingsApp.getSettings().getLocation()));
         mEditor.putInt(Constants.APP_PREFERENCES_LOCATION_ID,
-                SettingsApp.getSettings().getLocationIds());
+                SettingsApp.getSettings().getLocationId());
         mEditor.putBoolean(Constants.APP_PREFERENCES_NIGHT_MODE,
                 SettingsApp.getSettings().isNightMode());
         mEditor.putBoolean(Constants.APP_PREFERENCES_TEMPERATURE_UNITS,

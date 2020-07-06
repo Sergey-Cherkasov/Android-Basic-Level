@@ -7,26 +7,26 @@
     <LinearLayout
         android:id="@+id/ll_forecast_date_of_week"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            style="@style/Atmospheric_indicators_text"
+            android:id="@+id/tv_forecast_day_of_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Saturday, 4 July"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            style="@style/Atmospheric_indicators_text"
+            android:id="@+id/tv_forecast_cloudiness"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sunny"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -42,47 +42,27 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tv_forecast_humidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="5%"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"/>
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:id="@+id/iv_forecast_cloudiness"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="15dp"
             android:src="@drawable/ic_sunny" />
 
-        <ImageView
-            android:layout_width="9dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/ic_hot"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="28"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+        <include layout="@layout/element_max_temperature"
+            android:id="@+id/include_element_max_temperature" />
 
-        <ImageView
-            android:layout_width="9dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/ic_cold"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="10dp"
-            android:text="23"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+        <include layout="@layout/element_min_temperature"
+            android:id="@+id/include_element_min_temperature" />
 
     </LinearLayout>
 
@@ -91,6 +71,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

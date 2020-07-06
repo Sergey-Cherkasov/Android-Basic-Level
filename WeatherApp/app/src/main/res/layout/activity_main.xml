@@ -15,6 +15,22 @@
             android:id="@+id/toolbar"
             layout="@layout/component_toolbar" />
 
+        <TextView
+            android:id="@+id/tv_location_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Kemerovo"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_location_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Country"
+            android:textAlignment="center"
+            android:textSize="15sp" />
+
         <FrameLayout
             android:id="@+id/fl_current_frame"
             android:layout_width="match_parent"

@@ -5,11 +5,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
-public class CityAutocompleteTextView extends androidx.appcompat.widget.AppCompatAutoCompleteTextView {
+public class CityAutocompleteTextView
+        extends androidx.appcompat.widget.AppCompatAutoCompleteTextView {
 
     private static final int MESSAGE_TEXT_CHANGED = 100;
     private static final int DEFAULT_AUTOCOMPLETE_DELAY = 750;

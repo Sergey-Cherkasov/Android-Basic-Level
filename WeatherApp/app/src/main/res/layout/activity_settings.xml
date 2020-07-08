@@ -156,20 +156,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/tv_Cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cancel"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:cornerRadius="20dp" />
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/tv_Apply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:text="@string/apply"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:cornerRadius="20dp"/>
 
         </LinearLayout>
 

@@ -23,10 +23,4 @@ public final class Constants {
     /* Формат запроса к Yandex.Weather: GET https://api.weather.yandex.ru/v2/forecast?
     * Header request: X-Yandex-API-Key: db04b1bb-4d7c-485f-8e02-9252032416d6*/
 
-//    protected static final String URL_CURRENT_CONDITIONS =
-//            ACCUWEATHER_HOST + URL_GET_CURRENT_CONDITIONS + "/293142?apikey=" + ACCUWEATHER_API_KEY
-//                    + "&language=" + getResources().getString(R.string.data_request_language);
-    protected static final String URL_LOCATIONS_CITIES_SEARCH =
-            "ACCUWEATHER_HOST/currentconditions/v1/293142?apikey=WEATHER_API_KEY&language=ru-ru";
-
 }

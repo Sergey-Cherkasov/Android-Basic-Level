@@ -42,11 +42,20 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import br.svcdev.weatherapp.api.conditions.current.CurrentWeather;
+import br.svcdev.weatherapp.api.conditions.forecast.ForecastRequest;
 import br.svcdev.weatherapp.databinding.ActivityMainBinding;
+import br.svcdev.weatherapp.host.HostRequestConstants;
 import br.svcdev.weatherapp.host.SendRequest;
 
 public class MainActivity extends AppCompatActivity {
@@ -63,9 +72,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getSharedPreferences(Constants.APP_PREFERENCES_FILE, Context.MODE_PRIVATE)
+                .getBoolean(Constants.APP_PREFERENCES_NIGHT_MODE, false)){
+            setTheme(R.style.AppDarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         mBinding = ActivityMainBinding.inflate(LayoutInflater.from(this));
         setContentView(mBinding.getRoot());
 
+        onLoadSettings();
         initApp();
         initToolbar();
         initMainFragment();
@@ -149,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        onLoadSettings();
+
     }
 
     /**
@@ -188,12 +204,106 @@ public class MainActivity extends AppCompatActivity {
                 !mBinding.tvLocationCity.getText().toString()
                         .equals(SettingsApp.getSettings().getLocation())) {
 
+            // Отправляем запрос на погодный сервис для получения информации о текущей погоде
+            // Метод работает в отдельном потоке
 //            SendRequest sr = new SendRequest(this, getSupportFragmentManager());
 //            sr.execute();
 
+//            onSendRequestCurrentConditions();
+//            onSendRequestForecastConditions();
 
         }
     }
+
+/*
+    private void onSendRequestCurrentConditions(){
+        String mHost = HostRequestConstants.ACCUWEATHER_HOST;
+        String mController = HostRequestConstants.URL_GET_CURRENT_CONDITIONS;
+        int mCityId = SettingsApp.getSettings().getLocationId();
+        boolean mDetails = true;
+        String mLanguage = getResources().getString(R.string.data_request_language);
+        String mRequestMethod = HostRequestConstants.REQUEST_METHOD_GET;
+        Map<String, Object> mRequestParameters = new HashMap<>();
+
+        mRequestParameters.put("details", mDetails);
+        mRequestParameters.put("language", mLanguage);
+
+        SendRequest sendRequest = new SendRequest(this, mHost, mController, mCityId,
+                mRequestParameters, mRequestMethod, HostRequestConstants.URL_GET_CURRENT_CONDITIONS);
+        sendRequest.execute();
+    }
+
+    private void onSendRequestForecastConditions(){
+        String mHost = HostRequestConstants.ACCUWEATHER_HOST;
+        String mController = HostRequestConstants.URL_GET_FORECASTS_CONDITIONS;
+        int mCityId = SettingsApp.getSettings().getLocationId();
+        boolean mDetails = true;
+        String mLanguage = getResources().getString(R.string.data_request_language);
+        boolean mMetric = true;
+        String mRequestMethod = HostRequestConstants.REQUEST_METHOD_GET;
+        Map<String, Object> mRequestParameters = new HashMap<>();
+
+        mRequestParameters.put("details", mDetails);
+        mRequestParameters.put("metric", mMetric);
+        mRequestParameters.put("language", mLanguage);
+
+        SendRequest sendRequest = new SendRequest(this, mHost, mController, mCityId,
+                mRequestParameters, mRequestMethod,
+                HostRequestConstants.URL_GET_FORECASTS_CONDITIONS);
+        sendRequest.execute();
+    }
+*/
+
+/*
+    public void onServerResponse(Map<String, String> response){
+        Iterator<String> key = response.keySet().iterator();
+        String requestId = key.next();
+        String responseString = response.get(requestId);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        if (requestId.equals(HostRequestConstants.URL_GET_CURRENT_CONDITIONS)) {
+            CurrentWeather[] currentWeathers = gson.fromJson(responseString,
+                    CurrentWeather[].class);
+            onSetCurrentConditions(currentWeathers);
+        }
+        if (requestId.equals(HostRequestConstants.URL_GET_FORECASTS_CONDITIONS)) {
+            ForecastRequest forecastRequest = gson.fromJson(responseString,
+                    ForecastRequest.class);
+            onSetForecastConditions(forecastRequest);
+        }
+        Log.d(Constants.TAG_APP, "onServerResponse: ");
+    }
+
+    private void onSetForecastConditions(ForecastRequest forecastRequest) {
+        DailyForecastsFragment.setForecastRequest(forecastRequest);
+    }
+*/
+
+/*
+    private void onSetCurrentConditions(CurrentWeather[] currentWeathers) {
+        FragmentManager manager = getSupportFragmentManager();
+        Log.i(Constants.TAG_APP, String.format("MainActivity.setRequestResultOnGUI: temperature = %d",
+                (int) currentWeathers[0].getTemperature().getMetric().getValue()));
+        ((TextView) manager.findFragmentById(R.id.fl_current_frame).getView()
+                .findViewById(R.id.tv_temperature_value))
+                .setText(String.format("%d", (int) currentWeathers[0]
+                        .getTemperature().getMetric().getValue()));
+        ((TextView) manager.findFragmentById(R.id.fl_current_frame).getView()
+                .findViewById(R.id.tv_air_humidity_value))
+                .setText(String.format("%d %%", (int) currentWeathers[0]
+                        .getRelativeHumidity()));
+        ((TextView) manager.findFragmentById(R.id.fl_current_frame).getView()
+                .findViewById(R.id.tv_air_pressure_value))
+                .setText(String.format("%d %s", (int) currentWeathers[0]
+                                .getPressure().getMetric().getValue(),
+                        currentWeathers[0].getPressure().getMetric().getUnit()));
+        ((TextView) manager.findFragmentById(R.id.fl_current_frame).getView()
+                .findViewById(R.id.tv_wind_value))
+                .setText(String.format("%d %s", (int) currentWeathers[0]
+                                .getWind().getSpeed().getMetric().getValue(),
+                        currentWeathers[0].getWind().getSpeed().getMetric().getUnit()));
+    }
+*/
 
     /**
      * Метод загружает фрагмент с текущей погодой

@@ -9,9 +9,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import br.svcdev.weatherapp.R;
+import br.svcdev.weatherapp.api.conditions.forecast.DayForecast;
+import br.svcdev.weatherapp.api.conditions.forecast.ForecastRequest;
 
 public class ForecastRecyclerViewAdapter extends RecyclerView.Adapter<ForecastRecyclerViewAdapter
         .ForecastViewHolder>{
+
+    private ForecastRequest mDatasource;
+
+
+    public ForecastRecyclerViewAdapter(ForecastRequest dataSource) {
+        if (dataSource != null) {
+            this.mDatasource = dataSource;
+        }
+    }
+
     @NonNull
     @Override
     public ForecastViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -22,16 +34,18 @@ public class ForecastRecyclerViewAdapter extends RecyclerView.Adapter<ForecastRe
 
     @Override
     public void onBindViewHolder(@NonNull ForecastViewHolder holder, int position) {
-        holder.getForecastDateOfWeek().setText("Saturday, 4 July");
-        holder.getForecastCloudiness().setText("Sunny");
-        holder.getForecastHumidity().setText("5%");
-        holder.getForecastMaxTemperature().setText("33");
-        holder.getForecastMinTemperature().setText("28");
+        DayForecast dayForecast = mDatasource.getDailyForecasts()[position];
+        holder.setData(dayForecast.getDate(),
+                dayForecast.getForecastTemperature().getMaximum().getValue(),
+                dayForecast.getForecastTemperature().getMinimum().getValue());
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        if (mDatasource == null){
+            return 0;
+        }
+        return mDatasource.getDailyForecasts().length;
     }
 
     public static class ForecastViewHolder extends RecyclerView.ViewHolder{
@@ -46,7 +60,7 @@ public class ForecastRecyclerViewAdapter extends RecyclerView.Adapter<ForecastRe
             super(itemView);
             mForecastDateOfWeek = itemView.findViewById(R.id.tv_forecast_day_of_week);
             mForecastCloudiness = itemView.findViewById(R.id.tv_forecast_cloudiness);
-            mForecastHumidity = itemView.findViewById(R.id.tv_forecast_humidity);
+//            mForecastHumidity = itemView.findViewById(R.id.tv_forecast_humidity);
             mForecastMaxTemperature = itemView.findViewById(R.id.tv_forecast_max_temperature);
             mForecastMinTemperature = itemView.findViewById(R.id.tv_forecast_min_temperature);
         }
@@ -69,6 +83,13 @@ public class ForecastRecyclerViewAdapter extends RecyclerView.Adapter<ForecastRe
 
         public TextView getForecastMinTemperature() {
             return mForecastMinTemperature;
+        }
+
+        public void setData(String date, double maxTemperature, double minTemperature) {
+            getForecastDateOfWeek().setText(date);
+//            getForecastCloudiness().setText(cloudiness);
+            getForecastMaxTemperature().setText(Double.toString(maxTemperature));
+            getForecastMinTemperature().setText(Double.toString(minTemperature));
         }
     }
 

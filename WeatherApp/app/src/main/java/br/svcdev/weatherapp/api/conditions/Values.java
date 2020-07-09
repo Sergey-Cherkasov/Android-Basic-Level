@@ -1,8 +1,8 @@
-package br.svcdev.weatherapp.api.conditions.current;
+package br.svcdev.weatherapp.api.conditions;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Imperial {
+public class Values {
 
     @SerializedName("Value")
     private double value;
@@ -14,7 +14,7 @@ public class Imperial {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(double value) {
         this.value = value;
     }
 

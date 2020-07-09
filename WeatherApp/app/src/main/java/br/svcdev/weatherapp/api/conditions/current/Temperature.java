@@ -2,28 +2,30 @@ package br.svcdev.weatherapp.api.conditions.current;
 
 import com.google.gson.annotations.SerializedName;
 
+import br.svcdev.weatherapp.api.conditions.Values;
+
 public class Temperature {
 
     @SerializedName("Metric")
-    private Metric metric;
+    private Values metric;
 
     @SerializedName("Imperial")
-    private Imperial imperial;
+    private Values imperial;
 
 
-    public Metric getMetric() {
+    public Values getMetric() {
         return metric;
     }
 
-    public void setMetric(Metric metric) {
+    public void setMetric(Values metric) {
         this.metric = metric;
     }
 
-    public Imperial getImperial() {
+    public Values getImperial() {
         return imperial;
     }
 
-    public void setImperial(Imperial imperial) {
+    public void setImperial(Values imperial) {
         this.imperial = imperial;
     }
 }

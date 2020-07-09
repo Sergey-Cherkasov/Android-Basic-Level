@@ -1,66 +1,99 @@
 package br.svcdev.weatherapp.host;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import br.svcdev.weatherapp.Constants;
+import br.svcdev.weatherapp.DailyForecastsFragment;
 import br.svcdev.weatherapp.R;
-import br.svcdev.weatherapp.SettingsApp;
-import br.svcdev.weatherapp.api.conditions.current.CurrentWeather;
+import br.svcdev.weatherapp.ServerResponse;
 
-public class SendRequest extends AsyncTask<Void, Object[], Object[]> {
+public class SendRequest extends AsyncTask<Void, Map<String, String>, Map<String, String>> {
 
     private Context mContext;
+    private String mHost;
+    private String mController;
+    private int mCityId;
+    private String mRequestMethod;
+    private String mRequestId;
+    private Map<String, Object> mRequestParameters;
+
     private FragmentManager mManager;
 
-    public SendRequest(Context context, FragmentManager manager){
-        this.mContext = context;
-        this.mManager = manager;
+    private String mRequestParametersString;
+
+    public SendRequest(FragmentManager fragmentManager, String host, String controller, int cityId,
+                       Map<String, Object> requestParameters, String requestMethod,
+                       String requestId) {
+        this.mManager = fragmentManager;
+        this.mHost = host;
+        this.mController = controller;
+        this.mCityId = cityId;
+        this.mRequestParameters = requestParameters;
+        this.mRequestMethod = requestMethod;
+        this.mRequestId = requestId;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        mRequestParametersString = buildRequestParametersString(mRequestParameters);
         Log.d(Constants.TAG_APP, "SendRequest.onPreExecute: Begin");
     }
 
+    /**
+     * 127.0.0.1/currentconditions/v1/293142?apikey=WEATHER_API_KEY&language=ru-ru
+     */
+    private String buildRequestParametersString(Map<String, Object> requestParameters) {
+        Uri.Builder builder = new Uri.Builder();
+        builder.appendQueryParameter("apikey", Constants.ACCUWEATHER_API_KEY);
+        for (Map.Entry<String, Object> entry : requestParameters.entrySet()) {
+            builder.appendQueryParameter(entry.getKey(), entry.getValue().toString());
+        }
+        builder.build().getEncodedQuery();
+        Log.d(Constants.TAG_APP, builder.build().getEncodedQuery());
+        return builder.build().getEncodedQuery();
+    }
+
     @Override
-    protected Object[] doInBackground(Void... voids) {
+    protected Map<String, String> doInBackground(Void... voids) {
         Log.d(Constants.TAG_APP, "SendRequest.doInBackground: Begin async method");
-        CurrentWeather[] currentWeather = null;
         try {
-            URL url = new URL(buildApiStringRequest(SettingsApp.getSettings().getLocationId(),
-                    true));
+            URL url = new URL(mHost + mController + mCityId + "?" + mRequestParametersString);
             HttpURLConnection urlConnection = null;
-            Log.i(Constants.TAG_APP, "run: response = " + url);
+            Log.i(Constants.TAG_APP, "run: url = " + url);
             try {
                 urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod(HostRequestConstants.REQUEST_METHOD_GET);
+                urlConnection.setRequestMethod(mRequestMethod);
                 urlConnection.setReadTimeout(10000);
-                BufferedReader input = new BufferedReader(
-                        new InputStreamReader(urlConnection.getInputStream()));
+
+                InputStream inputStream;
+                if (urlConnection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
+                    inputStream = urlConnection.getInputStream();
+                } else {
+                    inputStream = urlConnection.getErrorStream();
+                }
+                BufferedReader input = new BufferedReader(new InputStreamReader(inputStream));
                 String response = getStringResponse(input);
-                Log.i(Constants.TAG_APP, "run: response = " + response);
-                GsonBuilder builder = new GsonBuilder();
-                Gson gson = builder.create();
-                currentWeather = gson.fromJson(response,
-                        CurrentWeather[].class);
+                Log.d(Constants.TAG_APP, "run: response = " + response);
+                Map<String, String> responseMap = new HashMap<>();
+                responseMap.put(mRequestId, response);
+                return responseMap;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -68,7 +101,7 @@ public class SendRequest extends AsyncTask<Void, Object[], Object[]> {
             e.printStackTrace();
         }
         Log.d(Constants.TAG_APP, "SendRequest.doInBackground: End async method");
-        return currentWeather;
+        return null;
     }
 
     private String getStringResponse(BufferedReader in) {
@@ -84,49 +117,19 @@ public class SendRequest extends AsyncTask<Void, Object[], Object[]> {
         return resultString.toString();
     }
 
-    /**
-     * 127.0.0.1/currentconditions/v1/293142?apikey=WEATHER_API_KEY&language=ru-ru
-     */
-    private String buildApiStringRequest(int locationId, boolean details) {
-        String url = "";
-        url = HostRequestConstants.ACCUWEATHER_HOST +
-                HostRequestConstants.URL_GET_CURRENT_CONDITIONS +
-                locationId + "?" +
-                "apikey=" + Constants.ACCUWEATHER_API_KEY + "&" +
-                "details=" + details + "&" +
-                "language=" + mContext.getResources().getString(R.string.data_request_language);
-        return url;
-    }
-
     @Override
-    protected void onPostExecute(Object[] o) {
-        super.onPostExecute(o);
-        setRequestResultOnGUI((CurrentWeather[]) o);
+    protected void onPostExecute(Map<String, String> responseMap) {
+        super.onPostExecute(responseMap);
+        switch (responseMap.keySet().iterator().next()){
+            case HostRequestConstants.URL_GET_CURRENT_CONDITIONS:
+                ((ServerResponse) mManager.findFragmentById(R.id.fl_current_frame))
+                        .onServerResponse(responseMap);
+                break;
+            case HostRequestConstants.URL_GET_FORECASTS_CONDITIONS:
+                ((ServerResponse) mManager.findFragmentById(R.id.fl_forecast_frame))
+                        .onServerResponse(responseMap);
+        }
         Log.d(Constants.TAG_APP, "SendRequest.onPostExecute: End.");
     }
 
-    private void setRequestResultOnGUI(CurrentWeather[] currentWeather) {
-        if (currentWeather.length == 1) {
-            Log.i(Constants.TAG_APP, String.format("MainActivity.setRequestResultOnGUI: temperature = %d",
-                    (int) currentWeather[0].getTemperature().getMetric().getValue()));
-            ((TextView) mManager.findFragmentById(R.id.fl_current_frame).getView()
-                    .findViewById(R.id.tv_temperature_value))
-                    .setText(String.format("%d", (int) currentWeather[0]
-                            .getTemperature().getMetric().getValue()));
-            ((TextView) mManager.findFragmentById(R.id.fl_current_frame).getView()
-                    .findViewById(R.id.tv_air_humidity_value))
-                    .setText(String.format("%d %%", (int) currentWeather[0]
-                            .getRelativeHumidity()));
-            ((TextView) mManager.findFragmentById(R.id.fl_current_frame).getView()
-                    .findViewById(R.id.tv_air_pressure_value))
-                    .setText(String.format("%d %s", (int) currentWeather[0]
-                            .getPressure().getMetric().getValue(),
-                            currentWeather[0].getPressure().getMetric().getUnit()));
-            ((TextView) mManager.findFragmentById(R.id.fl_current_frame).getView()
-                    .findViewById(R.id.tv_wind_value))
-                    .setText(String.format("%d %s", (int) currentWeather[0]
-                            .getWind().getSpeed().getMetric().getValue(),
-                            currentWeather[0].getWind().getSpeed().getMetric().getUnit()));
-        }
-    }
 }

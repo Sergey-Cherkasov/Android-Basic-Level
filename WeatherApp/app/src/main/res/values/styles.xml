@@ -8,10 +8,13 @@
         <item name="colorSecondary">@color/color_secondary</item>
         <item name="colorSecondaryVariant">@color/color_secondary_light</item>
         <item name="colorOnSecondary">@color/color_on_secondary</item>
+        <item name="android:colorBackground">@color/color_background_light</item>
 
     </style>
 
-    <style name="AppDarkTheme" parent="Theme.MaterialComponents.NoActionBar"/>
+    <style name="AppDarkTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:colorBackground">@color/color_background_dark</item>
+    </style>
 
     <!-- Toolbar theme -->
     <style name="AppToolbar" parent="Widget.MaterialComponents.ActionBar.Primary">
